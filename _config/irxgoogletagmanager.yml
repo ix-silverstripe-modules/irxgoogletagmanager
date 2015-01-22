@@ -1,0 +1,12 @@
+---
+Name: irxgoogletagmanager
+---
+SiteConfig:
+  extensions:
+    - 'GTMSiteConfigExtension'
+UserDefinedForm:
+  extensions:
+    - 'GTMUserFormsExtension'
+LeftAndMain:
+  extra_requirements_css:
+    - 'irxgoogletagmanager/css/irxgtm-extras.css'
