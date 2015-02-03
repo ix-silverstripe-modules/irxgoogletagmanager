@@ -1,0 +1,24 @@
+{
+	"name" : "silverstripe-modules/irxgoogletagmanager",
+	"description" : "This module contains a couple of handy FormFields for managing sitewide scripts, such as analytics javascript.",
+	"type" : "silverstripe-module",
+	"keywords" : [
+		"silverstripe",
+		"google tag management",
+		"GTM",
+		"google analytics",
+		"analytics  script"
+	],
+	"authors" : [{
+			"name" : "Guy Watson",
+			"email" : "guy.watson@internetrix.com.au"
+		}
+	],
+	"require" : {
+		"silverstripe/framework" : "~3.1"
+	},
+	"extra" : {
+		"installer-name" : "versionedextensions"
+	},
+	"minimum-stability" : "dev"
+}
