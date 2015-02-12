@@ -18,7 +18,7 @@
 		"silverstripe/framework" : "~3.1"
 	},
 	"extra" : {
-		"installer-name" : "versionedextensions"
+		"installer-name" : "irxgoogletagmanager"
 	},
 	"minimum-stability" : "dev"
 }
