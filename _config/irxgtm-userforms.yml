@@ -1,0 +1,10 @@
+---
+name: irxgtm-userforms
+After:
+  - '#irxgoogletagmanager'
+Only:
+  moduleexists: 'userforms'
+---
+UserDefinedForm:
+  extensions:
+    - 'GTMUserFormsExtension'

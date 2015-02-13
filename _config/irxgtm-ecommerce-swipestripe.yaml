@@ -1,0 +1,21 @@
+---
+name: irxgtm-ecommerce-swipestripe
+After:
+  - '#irxgoogletagmanager'
+Only:
+  moduleexists: 'swipestripe'
+---
+Product:
+  extensions:
+    - 'GTMSwipestripeProductExtension'
+ProductCategory:
+  extensions:
+    - 'GTMSwipestripeCategoryExtension'
+Item:
+  extensions:
+    - 'GTMSwipestripeOrderItemExtension'
+DataList:
+  extensions:
+    - 'GTMSwipestripeDataListExtension'
+ShopConfig:
+  GTMCurrencyCode: 'AUD'

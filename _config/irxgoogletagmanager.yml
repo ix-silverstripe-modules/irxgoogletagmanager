@@ -4,9 +4,9 @@ Name: irxgoogletagmanager
 SiteConfig:
   extensions:
     - 'GTMSiteConfigExtension'
-UserDefinedForm:
+Page:
   extensions:
-    - 'GTMUserFormsExtension'
+    - 'GTMPageExtension'
 LeftAndMain:
   extra_requirements_css:
     - 'irxgoogletagmanager/css/irxgtm-extras.css'

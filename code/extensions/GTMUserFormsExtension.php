@@ -24,30 +24,24 @@ class GTMUserFormsExtension extends DataExtension {
 	
 	public function contentcontrollerInit($controller) {
 		if(Session::get('FormProcessed')){
-			$this->owner->insertJSON = true;
-		}
-	}
-	
-	public function DataLayerJSON(){
-		if($this->owner->insertJSON){
+			
 			$submittedForm 	= $this->owner->Submissions()->sort('Created', 'DESC')->first();
 			$irxDataLayer 	= array();
 			$irxDataLayer['event'] = 'irx.newData.form';
 			$irxDataLayer['IRXSubmittedForm'] = array(
-				'name' 				=> "Page - " . $this->owner->MenuTitle,
-				'submissionId'		=> $submittedForm->ID,
-				'submissionStatus'	=> "",
+					'name' 				=> "Page - " . $this->owner->MenuTitle,
+					'submissionId'		=> $submittedForm->ID,
+					'submissionStatus'	=> "",
 			);
 			$fields = array();
 			foreach($submittedForm->Values() as $formField){
 				$fields[$formField->Title] = $formField->Value;
 			}
-			
+				
 			$irxDataLayer['IRXSubmittedForm']['fields'] = $fields;
 			
-			return Convert::array2json($irxDataLayer);
-		}else{
-			return false;
+			return $this->owner->insertGTMDataLayer($irxDataLayer);
 		}
 	}
+	
 }
