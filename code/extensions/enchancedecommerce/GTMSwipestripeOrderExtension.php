@@ -8,10 +8,10 @@
 
 class GTMSwipestripeOrderExtension extends DataExtension {
 	
-	public function updateOrderAddItem(&$item, $qty = null){
-		if($qty != null){
+	public function updateOrderAddItem(&$item, $quantity = null){
+		if($quantity === null){
 			//if $qty is not set, this is a newly added item and qty is set in Item DataObject.
-			$qty = $item->Quantity;
+			$quantity = $item->Quantity;
 		}
 		
 		$product = $item->Product();
@@ -23,7 +23,7 @@ class GTMSwipestripeOrderExtension extends DataExtension {
 			$impArray['price'] 		= $item->UnitAmount()->getAmount();
 			$impArray['brand'] 		= $product->getProductBrand();
 			$impArray['category'] 	= $product->getNestedCategoryNameForGTM();
-			$impArray['quantity'] 	= $qty;
+			$impArray['quantity'] 	= $quantity;
 			
 			//check variation.
 			$variantDO = $item->Variation();
