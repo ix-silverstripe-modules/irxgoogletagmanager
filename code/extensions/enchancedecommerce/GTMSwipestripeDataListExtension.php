@@ -10,9 +10,7 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 	
 	public function GenerateProductsGTMDataLayer($listName = 'Category'){
 		
-		$dataSet = $this->owner->getIterator();
-		
-		if($dataSet->count()){
+		if($this->owner->Count()){
 			$productDataArray = array();
 			
 			//get the offset number for this query. 
@@ -24,7 +22,7 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 				$start = $queryLimit['start'] ? $queryLimit['start'] + 1 : 1;
 			}
 
-			foreach ($dataSet as $productDO){
+			foreach ($this->owner as $productDO){
 				$data = $productDO->getImpressionData(false, $listName, $position);
 				if( ! empty($data)){
 					$productDataArray[] = $data;
