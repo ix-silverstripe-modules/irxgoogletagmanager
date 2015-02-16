@@ -87,9 +87,9 @@ class GTMPageExtension extends DataExtension {
 				'EventDataJSON' => $JSON
 			));
 		}
-		
+
 		return new ArrayData(array(
-			'EventDataJSON' => Convert::array2json($array),
+			'EventDataJSON' => Convert::array2json(array_shift($array)),
 		));
 	}
 	
