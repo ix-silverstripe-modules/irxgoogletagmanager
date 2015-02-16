@@ -20,5 +20,8 @@ DataList:
 PaginatedList:
   extensions:
     - 'GTMSwipestripeDataListExtension'
+Order:
+  extensions:
+    - 'GTMSwipestripeOrderExtension'
 ShopConfig:
   GTMCurrencyCode: 'AUD'

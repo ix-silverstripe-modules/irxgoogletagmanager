@@ -32,6 +32,8 @@ class GTMPageExtension extends DataExtension {
 		
 		$data = $this->owner->getGTMDataLayer($toJSON);
 		
+		if( ! $data) return false;
+		
 		//clear session data
 		Session::clear('GTMDataLayerArray');
 		Session::save();
