@@ -10,7 +10,13 @@ class GTMSwipestripeCategoryExtension extends DataExtension {
 	
 	public function contentcontrollerInit($controller){
 		
-		Session::set('GTMCurrentCategory', $this->owner->ID);
+		if($this->owner instanceof ProductCategory){
+			Session::set('GTMCurrentCategory', $this->owner->ID);
+		}else{
+			if( ! ($this->owner instanceof Product)){
+				Session::clear('GTMCurrentCategory');
+			}
+		}
 		
 	}
 	

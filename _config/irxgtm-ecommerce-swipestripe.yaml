@@ -8,13 +8,16 @@ Only:
 Product:
   extensions:
     - 'GTMSwipestripeProductExtension'
-ProductCategory:
+Page:
   extensions:
     - 'GTMSwipestripeCategoryExtension'
 Item:
   extensions:
     - 'GTMSwipestripeOrderItemExtension'
 DataList:
+  extensions:
+    - 'GTMSwipestripeDataListExtension'
+PaginatedList:
   extensions:
     - 'GTMSwipestripeDataListExtension'
 ShopConfig:

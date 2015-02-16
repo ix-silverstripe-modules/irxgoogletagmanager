@@ -8,7 +8,7 @@
 
 class GTMSwipestripeDataListExtension extends DataExtension {
 	
-	public function GenerateProductsDataLayer($listName = 'Category'){
+	public function GenerateProductsGTMDataLayer($listName = 'Category'){
 		
 		$dataSet = $this->owner->getIterator();
 		
@@ -37,6 +37,7 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 				$shopConfig = ShopConfig::current_shop_config();
 				$currencyCode = $shopConfig->BaseCurrency ? $shopConfig->BaseCurrency : Config::inst()->get('ShopConfig', 'GTMCurrencyCode');
 				
+				//generate data. e.g. https://developers.google.com/tag-manager/enhanced-ecommerce
 				Controller::curr()->insertGTMDataLayer(array(
 					'event' => 'irx.newProductsImpressions',
 					'IRXProductsImpressions' => array(

@@ -73,15 +73,22 @@ class GTMPageExtension extends DataExtension {
 			//more than 2 events. process it recursively.
 			$currentArray = array_shift($array);
 			
-			return array(
-				'EventData' 	=> $currentArray,
-				'EventDataJSON' => Convert::array2json($currentArray),
-				'CallbackEvent' => $this->convertDataToNestedArrayData($array)		
-			);
+			$callBackArray = $this->convertDataToNestedArrayData($array);
+			
+			$currentArray['eventCallback'] = "ToBeReplace";
+			
+			$JSON = Convert::array2json($currentArray);
+			
+			$callBackFunctionString = ViewableData::create()->renderWith('GTMDataLayerCallback', $callBackArray);
+			
+			$JSON = str_ireplace('"ToBeReplace"', $callBackFunctionString, $JSON);
+			
+			return new ArrayData(array(
+				'EventDataJSON' => $JSON
+			));
 		}
 		
 		return new ArrayData(array(
-			'EventData' 	=> $array,
 			'EventDataJSON' => Convert::array2json($array),
 		));
 	}

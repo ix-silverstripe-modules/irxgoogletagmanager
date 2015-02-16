@@ -1,6 +1,4 @@
-window.IRXDataLayer = window.IRXDataLayer || [];
-<% if CallbackEvent %>
-	<% include GTMDataLayerCallback %>
-<% else %>	
+<script>
+	window.IRXDataLayer = window.IRXDataLayer || [];
 	IRXDataLayer.push($EventDataJSON);
-<% end_if %>
+</script>

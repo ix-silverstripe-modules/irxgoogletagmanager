@@ -42,6 +42,8 @@ class GTMSwipestripeProductExtension extends DataExtension {
 		if($parents && $parents->Count()){
 			$parentsArray = $parents->map('ID', 'Title');
 			
+			$parentsArray = array_reverse($parentsArray);
+			
 			return implode($glue, $parentsArray);
 		}
 		
@@ -56,6 +58,33 @@ class GTMSwipestripeProductExtension extends DataExtension {
 		
 		return Config::inst()->get('Product', 'GTMBrand');
 	}
+	
+	
+	
+	
+	
+	/**
+	 * Product Details view.
+	 * This DataLayer will be generated each time product details are presented.
+	 * 
+	 * @param Controller $controller
+	 */
+	public function contentcontrollerInit($controller){
+		if($controller instanceof Product_Controller){
+			$controller->insertGTMDataLayer(array(
+				'event' => 'irx.newProductDetails',
+				'IRXProductDetails' => array(
+					'ecommerce' => array(
+						'details' 	=> array(
+							'actionField' => array('list' => 'Category'),
+							'products' => $this->owner->getImpressionData()
+						)
+					)
+				)
+			));
+		}
+	}
+	
 	
 	public function getImpressionData($toJSON = false, $listName = 'Category', $position = false){
 		//check if there is Alternative method for this function.
@@ -86,5 +115,16 @@ class GTMSwipestripeProductExtension extends DataExtension {
 		return $toJSON ? Convert::array2json($impArray) : $impArray;
 	}
 	
+	
+	public function getProductClickGTMAttr($listName = 'Category'){
+		$array = array();
+		
+		$array[] = sprintf('data-productName="%s"', $this->owner->Title);
+		$array[] = sprintf('data-productID="%d"', $this->owner->ID);
+		$array[] = sprintf('data-category="%s"', $this->owner->getNestedCategoryNameForGTM());
+		$array[] = sprintf('data-list="%s"', $listName);
+		
+		return implode(' ', $array);
+	}
 	
 }
