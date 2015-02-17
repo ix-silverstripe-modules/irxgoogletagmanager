@@ -28,24 +28,24 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 			$listName = $masterListName;
 		}
 		
-		if($this->owner->Count()){
+		
+		$dataList = $this->owner;
+		
+		//get default page limits
+		$request 	= Controller::curr()->request;
+		$start 		= $request->getVar('start');
+		$start		= ($start === null) ? 0 : $start;
+		$length 	= $request->getVar('length');
+		$length		= ($length === null) ? 10 : $length;
+		
+		$dataList = $dataList->limit($length, $start);
+
+		$position = $start ? ($start + 1) : 1;
+		
+		if($dataList->Count()){
 			$productDataArray = array();
 			
-			//get the offset number for this query. 
-			//we need this number for setting 'position' value
-			$listQuery 	= $this->owner->dataQuery()->query();
-			$queryLimit	= $listQuery->getLimit();
-
-			if(is_array($queryLimit) && isset($queryLimit['start'])){
-				$position = $queryLimit['start'] ? $queryLimit['start'] + 1 : 1;
-			}else {
-				//check GET value
-				$request = Controller::curr()->request;
-				$position = $request->getVar('start');
-				$position = $position ? ($position + 1) : 1;
-			}
-
-			foreach ($this->owner as $productDO){
+			foreach ($dataList as $productDO){
 				$data = $productDO->getImpressionData(false, $listName, $position);
 				if( ! empty($data)){
 					$productDataArray[] = $data;
