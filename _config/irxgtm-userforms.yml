@@ -1,6 +1,6 @@
 ---
 name: irxgtm-userforms
-After:
+Before:
   - '#irxgoogletagmanager'
 Only:
   moduleexists: 'userforms'
