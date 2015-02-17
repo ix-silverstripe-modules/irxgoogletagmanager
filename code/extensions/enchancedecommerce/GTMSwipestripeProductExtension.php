@@ -116,7 +116,7 @@ class GTMSwipestripeProductExtension extends DataExtension {
 	}
 	
 	
-	public function getProductClickGTMAttr($listName = 'Category'){
+	public function ProductClickGTMAttr($listName = 'Category'){
 		$array = array();
 		
 		$array[] = sprintf('data-productName="%s"', $this->owner->Title);

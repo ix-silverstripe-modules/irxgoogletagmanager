@@ -8,53 +8,67 @@
 
 class GTMSwipestripeOrderExtension extends DataExtension {
 	
+	protected $cachedItemsArray = null;
+	
 	public function updateOrderAddItem(&$item, $quantity = null){
-		if($quantity === null){
-			//if $qty is not set, this is a newly added item and qty is set in Item DataObject.
-			$quantity = $item->Quantity;
-		}
+
+		$DataLayerArray = $item->generateAddOrRemoveDataLayerArray('add', $quantity);
+	
+		Controller::curr()->insertGTMDataLayer($DataLayerArray);
 		
-		$product = $item->Product();
+		return;
+	}
+	
+	
+	public function checkoutStepGTMDataArray($stepNumber, $option = null){
 		
-		if($product && $product->ID){
-			$impArray 	= array();
-			$impArray['name'] 		= $product->Title;
-			$impArray['id'] 		= $product->ID;
-			$impArray['price'] 		= $item->UnitAmount()->getAmount();
-			$impArray['brand'] 		= $product->getProductBrand();
-			$impArray['category'] 	= $product->getNestedCategoryNameForGTM();
-			$impArray['quantity'] 	= $quantity;
-			
-			//check variation.
-			$variantDO = $item->Variation();
-			if($variantDO && $variantDO->ID){
-				$vOptions = $variantDO->Options();
-				
-				if ($vOptions && $vOptions->exists()) foreach ($vOptions as $option) {
-					$temp[] = $option->Title . '(' .  $option->Attribute()->Title . ')';
-				}
-					
-				if( ! empty($temp)){
-					$impArray['variant'] 	= implode(', ', $temp);
+		$productsArray = array();
+		
+		if($this->cachedItemsArray !== null){
+			$productsArray = $this->cachedItemsArray;
+		}else{
+			$order = Cart::get_current_order();
+			if($order && $order->ID){
+				$items = $order->Items();
+				foreach ($items as $item){
+					$productsArray[] = $item->generateProductItemArray();
 				}
 			}
-			
-			$shopConfig = ShopConfig::current_shop_config();
-			$currencyCode = $shopConfig->BaseCurrency ? $shopConfig->BaseCurrency : Config::inst()->get('ShopConfig', 'GTMCurrencyCode');
-
-			Controller::curr()->insertGTMDataLayer(array(
-				'event' => 'irx.newShoppingCartChanged',
-				'IRXShoppingCartChange' => array(
-					'ecommerce' => array(
-						'currencyCode' 	=> $currencyCode,
-						'add' => array(
-							'products' => $impArray			
-						)
-					)
-				)
-			));
 		}
 		
+		//TODO should we return empty product array when there is no product added?
+// 		if(empty($productsArray)){
+// 			return false;
+// 		}
+		
+		$dataArray = array(
+			'event' => 'irx.newCheckoutStep',
+			'IRXCheckoutStep' => array(
+				'ecommerce' => array(
+					'checkout' 	=> array(
+						'actionField' => array('step' => $stepNumber, 'option' => $option),
+						'products' => $productsArray
+					)
+				)
+			)
+		);
+		
+		if(Member::currentUserID()){
+			$dataArray['userID'] = Member::currentUserID();
+		}
+		
+		return $dataArray;
+	}
+	
+	
+	public function GTMCheckoutDataAttr($stepNumber, $option = null){
+		$array = array();
+		
+		$array[] = 'data-gtmaction="checkout-update"';
+		$array[] = 'data-gtmstep="'.$stepNumber.'"';
+		$array[] = sprintf('data-data2push=\'%s\'', Convert::array2json($this->owner->checkoutStepGTMDataArray($stepNumber, $option)));
+		
+		return implode(' ', $array);
 	}
 	
 }
