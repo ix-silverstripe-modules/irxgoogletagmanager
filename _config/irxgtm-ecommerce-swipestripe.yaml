@@ -26,9 +26,6 @@ Item:
 DataList:
   extensions:
     - 'GTMSwipestripeDataListExtension'
-PaginatedList:
-  extensions:
-    - 'GTMSwipestripeDataListExtension'
 Order:
   extensions:
     - 'GTMSwipestripeOrderExtension'

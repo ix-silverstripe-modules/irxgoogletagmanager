@@ -33,12 +33,17 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 			
 			//get the offset number for this query. 
 			//we need this number for setting 'position' value
-// 			$listQuery 	= $this->owner->dataQuery()->query();
-// 			$queryLimit	= $listQuery->getLimit();
+			$listQuery 	= $this->owner->dataQuery()->query();
+			$queryLimit	= $listQuery->getLimit();
 
-// 			if(is_array($queryLimit) && isset($queryLimit['start'])){
-// 				$position = $queryLimit['start'] ? $queryLimit['start'] + 1 : 1;
-// 			}
+			if(is_array($queryLimit) && isset($queryLimit['start'])){
+				$position = $queryLimit['start'] ? $queryLimit['start'] + 1 : 1;
+			}else {
+				//check GET value
+				$request = Controller::curr()->request;
+				$position = $request->getVar('start');
+				$position = $position ? ($position + 1) : 1;
+			}
 
 			foreach ($this->owner as $productDO){
 				$data = $productDO->getImpressionData(false, $listName, $position);
