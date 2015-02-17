@@ -8,19 +8,37 @@
 
 class GTMSwipestripeDataListExtension extends DataExtension {
 	
-	public function GenerateProductsGTMDataLayer($listName = 'Category'){
+	/**
+	 * Set a master list name which is a global list name.
+	 * It will overwritten the one set in template or as PHP function parameter.
+	 */
+	public function setMasterListName($masterListName){
+		
+		return $this->owner->setDataQueryParam('GTM.MasterListName', $masterListName);
+		
+	}
+	
+	public function GenerateProductsGTMDataLayer($listName = 'Category', $position = 1){
+		
+		//check if there is a master list name.
+		//master list name is useful for ajax request.
+		$dataQuery = $this->owner->dataQuery();
+		$masterListName = $dataQuery->getQueryParam('GTM.MasterListName');
+		if($masterListName !== null){
+			$listName = $masterListName;
+		}
 		
 		if($this->owner->Count()){
 			$productDataArray = array();
 			
 			//get the offset number for this query. 
 			//we need this number for setting 'position' value
-			$listQuery 	= $this->owner->dataQuery()->query();
-			$queryLimit	= $listQuery->getLimit();
-			$position 	= 1;
-			if(is_array($queryLimit) && isset($queryLimit['start'])){
-				$start = $queryLimit['start'] ? $queryLimit['start'] + 1 : 1;
-			}
+// 			$listQuery 	= $this->owner->dataQuery()->query();
+// 			$queryLimit	= $listQuery->getLimit();
+
+// 			if(is_array($queryLimit) && isset($queryLimit['start'])){
+// 				$position = $queryLimit['start'] ? $queryLimit['start'] + 1 : 1;
+// 			}
 
 			foreach ($this->owner as $productDO){
 				$data = $productDO->getImpressionData(false, $listName, $position);
@@ -50,6 +68,7 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 
 		return $this->owner;
 	}
+	
 	
 	
 }

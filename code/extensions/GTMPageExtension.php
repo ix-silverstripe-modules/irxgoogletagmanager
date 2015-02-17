@@ -30,13 +30,9 @@ class GTMPageExtension extends DataExtension {
 	 */
 	public function loadDataLayerForTemplate($toJSON = false){
 		
-		$data = $this->owner->getGTMDataLayer($toJSON);
+		$data = $this->owner->getGTMDataLayer($toJSON, true);
 		
 		if( ! $data) return false;
-		
-		//clear session data
-		Session::clear('GTMDataLayerArray');
-		Session::save();
 		
 		$ArrayData = $this->convertDataToNestedArrayData($data);
 		
@@ -98,10 +94,16 @@ class GTMPageExtension extends DataExtension {
 	
 	
 	
-	public function getGTMDataLayer ($toJSON = false) {
+	public function getGTMDataLayer ($toJSON = false, $clearSessionAfterGet = false) {
 		$data = Session::get('GTMDataLayerArray');
 		
 		if($data === null) return false;
+		
+		if($clearSessionAfterGet === true){
+			//clear session data
+			Session::clear('GTMDataLayerArray');
+			Session::save();
+		}
 		
 		return $toJSON ? Convert::array2json($data) : $data;
 	}
