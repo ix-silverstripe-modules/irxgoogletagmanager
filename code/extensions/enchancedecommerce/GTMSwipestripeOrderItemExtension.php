@@ -54,13 +54,13 @@ class GTMSwipestripeOrderItemExtension extends DataExtension {
 		
 		if($action == 'add'){
 			$shoppingEventFunctionName 	= 'newShoppingCartChangeAdd';
-			$shoppingActionFunctionName = 'IRXShoppingCartChangeAdd'
+			$shoppingActionFunctionName = 'IRXShoppingCartChangeAdd';
 		}elseif($action == 'remove'){
 			$shoppingEventFunctionName 	= 'newShoppingCartChangeRemove';
-			$shoppingActionFunctionName = 'IRXShoppingCartChangeRemove'
+			$shoppingActionFunctionName = 'IRXShoppingCartChangeRemove';
 		}else{
 			$shoppingEventFunctionName 	= 'newShoppingCartChanged';
-			$shoppingActionFunctionName = 'IRXShoppingCartChange'
+			$shoppingActionFunctionName = 'IRXShoppingCartChange';
 		}
 		
 		return array(
