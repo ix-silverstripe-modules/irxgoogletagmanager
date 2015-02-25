@@ -16,7 +16,7 @@ $('[data-gtmaction=product-add]').livequery(function(){
 		
 		var QTY = parseInt($(this).closest('tr').find('input').val()),
 		Data2Push = $(this).data('data2push'),
-		OriginalQTY = parseInt(Data2Push.IRXShoppingCartChange.ecommerce.add.products[0].quantity);
+		OriginalQTY = parseInt(Data2Push.IRXShoppingCartChangeAdd.ecommerce.add.products[0].quantity);
 		
 		//update qty
 		//only trigger the push function only if new qty is not null and not equal to original one.
