@@ -8,7 +8,7 @@
 
 class GTMSwipestripeOrderItemExtension extends DataExtension {
 	
-	public function generateProductItemArray($quantity = null){
+	public function generateProductItemArray($quantity = null, $withCateory = true){
 		
 		$item = $this->owner;
 		
@@ -23,7 +23,9 @@ class GTMSwipestripeOrderItemExtension extends DataExtension {
 		$impArray['id'] 		= $product->ID;
 		$impArray['price'] 		= $item->UnitAmount()->getAmount();
 		$impArray['brand'] 		= $product->getProductBrand();
-		$impArray['category'] 	= $product->getNestedCategoryNameForGTM();
+		if($withCateory){
+			$impArray['category'] 	= $product->getNestedCategoryNameForGTM();
+		}
 		$impArray['quantity'] 	= $quantity;
 		
 		//check variation.

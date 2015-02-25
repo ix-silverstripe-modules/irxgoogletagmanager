@@ -39,6 +39,16 @@ class GTMSwipestripeAccountPageExtension extends DataExtension {
 						}
 					}	
 					
+					//check coupon code if applicable
+					$couponMod 	= CouponModification::get()->filter('OrderID',$orderDO->ID)->first();
+					$couponCode	= '';
+					if($couponMod && $couponMod->ID){
+						$couponDO = $couponMod->Coupon();
+						if($couponDO && $couponDO->ID){
+							$couponCode = $couponDO;
+						}
+					}
+					
 					$data = array(
 						'event' => 'irx.newEnhancedTransaction',
 						'IRXEnhancedTransaction' => array(
@@ -50,7 +60,7 @@ class GTMSwipestripeAccountPageExtension extends DataExtension {
 										'revenue' 		=> $orderDO->TotalPrice()->getAmount(),
 										'tax' 			=> $orderDO->TaxPrice()->getAmount(),
 										'shipping' 		=> $orderDO->ShippingPriceForGA()->getAmount(),	
-										'coupon' 		=> $orderDO->CouponCode
+										'coupon' 		=> $couponCode->Code
 									),
 									'products' => $productsArray
 								)
