@@ -52,9 +52,20 @@ class GTMSwipestripeOrderItemExtension extends DataExtension {
 		
 		$currentItemArray = $this->generateProductItemArray($quantity);
 		
+		if($action == 'add'){
+			$shoppingEventFunctionName 	= 'newShoppingCartChangeAdd';
+			$shoppingActionFunctionName = 'IRXShoppingCartChangeAdd'
+		}elseif($action == 'remove'){
+			$shoppingEventFunctionName 	= 'newShoppingCartChangeRemove';
+			$shoppingActionFunctionName = 'IRXShoppingCartChangeRemove'
+		}else{
+			$shoppingEventFunctionName 	= 'newShoppingCartChanged';
+			$shoppingActionFunctionName = 'IRXShoppingCartChange'
+		}
+		
 		return array(
-			'event' => 'irx.newShoppingCartChanged',
-			'IRXShoppingCartChange' => array(
+			'event' => 'irx.' . $shoppingEventFunctionName,
+			$shoppingActionFunctionName => array(
 				'ecommerce' => array(
 					'currencyCode' 	=> $currencyCode,
 					$action => array(
