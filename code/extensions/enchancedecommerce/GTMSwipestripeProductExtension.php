@@ -44,6 +44,8 @@ class GTMSwipestripeProductExtension extends DataExtension {
 			
 			$parentsArray = array_reverse($parentsArray);
 			
+			$parentsArray[$currentCategory->ID] = $currentCategory->Title;
+			
 			return implode($glue, $parentsArray);
 		}
 		
