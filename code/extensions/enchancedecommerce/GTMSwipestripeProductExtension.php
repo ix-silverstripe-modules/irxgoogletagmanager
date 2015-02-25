@@ -72,7 +72,8 @@ class GTMSwipestripeProductExtension extends DataExtension {
 	 * @param Controller $controller
 	 */
 	public function contentcontrollerInit($controller){
-		if($controller instanceof Product_Controller){
+		if($controller instanceof Product_Controller && ! $controller->request->isPOST()){
+			// skip it if it's POST request. prevent duplicated data inserted.
 			$controller->insertGTMDataLayer(array(
 				'event' => 'irx.newProductDetails',
 				'IRXProductDetails' => array(
