@@ -119,6 +119,10 @@ class GTMSwipestripeProductExtension extends DataExtension {
 	public function ProductClickGTMAttr($listName = 'Category'){
 		$array = array();
 		
+		if(Session::get('TMPListName') !== null){
+			$listName = Session::get('TMPListName');
+		}
+		
 		$array[] = sprintf('data-productName="%s"', $this->owner->Title);
 		$array[] = sprintf('data-productID="%d"', $this->owner->ID);
 		$array[] = sprintf('data-category="%s"', $this->owner->getNestedCategoryNameForGTM());

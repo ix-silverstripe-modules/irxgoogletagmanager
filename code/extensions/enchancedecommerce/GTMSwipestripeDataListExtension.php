@@ -18,6 +18,10 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 		
 	}
 	
+	public function getMasterListName(){
+		return $this->owner->dataQuery()->getQueryParam('GTM.MasterListName');
+	}
+	
 	public function GenerateProductsGTMDataLayer($listName = 'Category', $position = 1){
 		
 		//check if there is a master list name.
@@ -28,7 +32,6 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 			$listName = $masterListName;
 		}
 		
-		
 		$dataList = $this->owner;
 		
 		//get default page limits
@@ -36,7 +39,12 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 		$start 		= $request->getVar('start');
 		$start		= ($start === null) ? 0 : $start;
 		$length 	= $request->getVar('length');
-		$length		= ($length === null) ? 10 : $length;
+		if($length === null){
+			$length = $dataQuery->getQueryParam('GTM.PageLength');
+			if( ! $length){
+				$length = 9;
+			}
+		}
 		
 		$dataList = $dataList->limit($length, $start);
 
@@ -70,7 +78,9 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 				));
 			}
 		}
-
+		
+		Session::set('TMPListName', $listName);
+		
 		return $this->owner;
 	}
 	
