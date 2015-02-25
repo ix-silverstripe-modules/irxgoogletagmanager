@@ -45,7 +45,7 @@ class GTMSwipestripeAccountPageExtension extends DataExtension {
 					if($couponMod && $couponMod->ID){
 						$couponDO = $couponMod->Coupon();
 						if($couponDO && $couponDO->ID){
-							$couponCode = $couponDO;
+							$couponCode = $couponDO->Code;
 						}
 					}
 					
