@@ -60,7 +60,7 @@ class GTMSwipestripeAccountPageExtension extends DataExtension {
 										'revenue' 		=> $orderDO->TotalPrice()->getAmount(),
 										'tax' 			=> $orderDO->TaxPrice()->getAmount(),
 										'shipping' 		=> $orderDO->ShippingPriceForGA()->getAmount(),	
-										'coupon' 		=> $couponCode->Code
+										'coupon' 		=> $couponCode
 									),
 									'products' => $productsArray
 								)
