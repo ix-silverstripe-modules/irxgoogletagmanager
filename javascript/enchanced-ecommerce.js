@@ -27,11 +27,11 @@ $('[data-gtmaction=product-add]').livequery(function(){
 				var RemoveTag = $(this).closest('tr').find('a[data-gtmaction=product-remove]');
 				Data2Push = null;//clear this object to prevent conflict.
 				Data2Push = RemoveTag.data('data2push');
-				Data2Push.IRXShoppingCartChange.ecommerce.remove.products[0].quantity = OriginalQTY - QTY;
+				Data2Push.IRXShoppingCartChangeRemove.ecommerce.remove.products[0].quantity = OriginalQTY - QTY;
 			}else{
 				//more item
 				//update the 'add' item qty
-				Data2Push.IRXShoppingCartChange.ecommerce.add.products[0].quantity = QTY - OriginalQTY;
+				Data2Push.IRXShoppingCartChangeAdd.ecommerce.add.products[0].quantity = QTY - OriginalQTY;
 			}
 			
 			IRXDataLayer.push(Data2Push);
