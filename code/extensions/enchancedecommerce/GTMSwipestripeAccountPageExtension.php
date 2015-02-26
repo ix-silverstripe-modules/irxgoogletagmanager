@@ -8,7 +8,7 @@
 
 class GTMSwipestripeAccountPageExtension extends DataExtension {
 	
-	public function contentcontrollerInit(AccountPage_Controller $controller){
+	public function pushPaymentResult(){
 		
 		$paymentID 	= Session::get('PaymentResultPaymentID');
 		
@@ -70,7 +70,7 @@ class GTMSwipestripeAccountPageExtension extends DataExtension {
 						$data['userID'] = $payment->PaidByID;
 					}
 					
-					$controller->insertGTMDataLayer($data);
+					Controller::curr()->insertGTMDataLayer($data);
 				}
 			}
 		}
