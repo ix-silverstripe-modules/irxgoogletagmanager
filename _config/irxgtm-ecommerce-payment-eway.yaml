@@ -1,0 +1,10 @@
+---
+name: irxgtm-ecommerce-payment-eway
+Before:
+  - '#irxgoogletagmanager'
+Only:
+  moduleexists: 'payment-eway'
+---
+Page:
+  extensions:
+    - 'GTMPaymentEwayRapidControllerExtension'
