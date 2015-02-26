@@ -23,7 +23,17 @@ class GTMSwipestripeDataListExtension extends DataExtension {
 	}
 	
 	public function GenerateProductsGTMDataLayer($listName = 'Category', $position = 1){
-		
+		if(get_class($this->owner) == 'PaginatedList'){
+			if( ! Session::get('GTMPaginatedListProcessed')){
+				Session::set('GTMPaginatedListProcessed', true);
+				Session::save();
+			}else{
+				Session::clear('GTMPaginatedListProcessed');
+				Session::save();
+				return $this->owner;
+			}
+		}
+
 		//check if there is a master list name.
 		//master list name is useful for ajax request.
 		$dataQuery = $this->owner->dataQuery();
