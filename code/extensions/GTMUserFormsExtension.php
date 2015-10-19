@@ -31,6 +31,7 @@ class GTMUserFormsExtension extends DataExtension {
 	public function DataLayerJSON(){
 		if($this->owner->insertJSON){
 			$submittedForm 	= $this->owner->Submissions()->sort('Created', 'DESC')->first();
+			if(!$submittedForm) return false;
 			$irxDataLayer 	= array();
 			$irxDataLayer['event'] = 'irx.newData.form';
 			$irxDataLayer['IRXSubmittedForm'] = array(
