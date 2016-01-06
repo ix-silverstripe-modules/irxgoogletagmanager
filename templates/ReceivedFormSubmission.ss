@@ -1,4 +1,4 @@
-<% if  ReceivedFormPlaceholder %>
+<% if ReceivedFormPlaceholder %>
 	$ReceivedFormPlaceholder.RAW
 <% else %>
 	$SiteConfig.ReceivedFormPlaceholder.RAW

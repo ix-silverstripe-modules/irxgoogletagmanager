@@ -16,39 +16,67 @@ class GTMUserFormsExtension extends DataExtension {
 	
 	public function updateCMSFields(FieldList $fields) {
 
-		$fields->addFieldToTab("Root.FormOptions", TextareaField::create("ReceivedFormPlaceholder", "Received Form Placeholder")
-			->addExtraClass('gtm')
-			->setDescription('This code is injected into the page after a userforms submission. Will override any code (if any) defined at a global level for this page')
+		$fields->addFieldToTab("Root.FormOptions", TextareaField::create("ReceivedFormPlaceholder", "Script after form submitted")
+			->addExtraClass('gtm stacked')
+			->setDescription('This code is injected into the page after a userforms submission. Will override code (if any) defined at a global level for userforms.')
 		); 
 	}
 	
 	public function contentcontrollerInit($controller) {
-		if(Session::get('FormProcessed')){
+		if(Session::get('GTM-capturedFields-'. $this->owner->ID)){
 			$this->owner->insertJSON = true;
 		}
 	}
 	
 	public function DataLayerJSON(){
 		if($this->owner->insertJSON){
-			$submittedForm 	= $this->owner->Submissions()->sort('Created', 'DESC')->first();
-			if(!$submittedForm) return false;
+			$submittedID = Session::get('userformssubmission'. $this->owner->ID);
+			$submittedForm 	= $this->owner->Submissions()->byID($submittedID);
 			$irxDataLayer 	= array();
 			$irxDataLayer['event'] = 'irx.newData.form';
 			$irxDataLayer['IRXSubmittedForm'] = array(
 				'name' 				=> "Page - " . $this->owner->MenuTitle,
-				'submissionId'		=> $submittedForm->ID,
-				'submissionStatus'	=> "",
+				'submissionId' 		=> 0,
+				'submissionStatus'	=> "not saved",
 			);
-			$fields = array();
-			foreach($submittedForm->Values() as $formField){
-				$fields[$formField->Title] = $formField->Value;
+			
+			if(!$submittedForm){ 
+				$submittedForm = Session::get('GTM-capturedFields-'. $this->owner->ID)['Fields'];
+				$fields = array();
+				foreach($submittedForm as $formField){
+					$fields[$formField->Title] = $formField->Value;
+				}
+			} else {
+				$irxDataLayer['IRXSubmittedForm']['submissionId'] = $submittedForm->ID;
+				$irxDataLayer['IRXSubmittedForm']['submissionStatus'] = "saved";
+				$fields = array();
+				foreach($submittedForm->Values() as $formField){
+					$fields[$formField->Title] = $formField->Value;
+				}
 			}
 			
-			$irxDataLayer['IRXSubmittedForm']['fields'] = $fields;
+			$counta = Session::get('GTM-capturedRecipients-'. $this->owner->ID);
+			$irxDataLayer['IRXSubmittedForm']['submissionStatus'] .= ", send $counta email";
 			
+			$irxDataLayer['IRXSubmittedForm']['fields'] = $fields;
+			Session::clear('GTM-capturedRecipients-'. $this->owner->ID);
+			Session::clear('GTM-capturedFields-'. $this->owner->ID);
+			Session::clear('userformssubmission'. $this->owner->ID); // tidy up userforms!
 			return Convert::array2json($irxDataLayer);
 		}else{
 			return false;
 		}
+	}
+	// count the number of emails to be sent
+	public function updateFilteredEmailRecipients( $recipients, $data, $form){
+		Session::set('GTM-capturedRecipients-'. $this->owner->ID, $recipients->Count() );
+	}
+	
+}
+
+class GTMUserFormsControllerExtension extends DataExtension {
+	// catch form data here in case the submission isn't being saved.
+	public function updateEmailData( $emailData,  $attachments){
+		Session::set('GTM-capturedFields-'. $this->owner->ID, $emailData);
 	}
 }

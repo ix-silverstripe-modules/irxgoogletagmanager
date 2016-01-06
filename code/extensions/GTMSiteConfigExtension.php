@@ -16,25 +16,25 @@ class GTMSiteConfigExtension extends DataExtension {
 	);
 	
 	public function updateCMSFields(FieldList $fields) {
-		$fields->addFieldToTab ( "Root", Tab::create('GTM', 'GTM'), 'Access');
+		$fields->addFieldToTab ( "Root", Tab::create('GTM', 'Scripts'), 'Access');
 		$fields->addFieldsToTab ( "Root.GTM", 					
 			array(
-				TextareaField::create('Placeholder1', 'Placeholder 1')
-					->setRows(20)
-					->addExtraClass('gtm')
-					->setDescription('before &lt;/HEAD&gt; tag'),
-				TextareaField::create('Placeholder2', 'Placeholder 2')
-					->setRows(20)
-					->addExtraClass('gtm')
-					->setDescription('after &lt;BODY&gt; tag'),
-				TextareaField::create('Placeholder3', 'Placeholder 3')
-					->setRows(20)
-					->addExtraClass('gtm')
-					->setDescription('before &lt;/BODY&gt; tag'),
-				TextareaField::create('ReceivedFormPlaceholder', 'Received Form Placeholder')
-					->setRows(30)
-					->addExtraClass('gtm')
-					->setDescription("This code is injected into the page after a userforms submission. Specific (per form) code can be added on the form page and will override this content")
+				TextareaField::create('Placeholder1', 'Script inside &lt;HEAD&gt;')
+					->setRows(15)
+					->addExtraClass('gtm stacked')
+					->setDescription("This code is injected into all pages at the top, before the &lt;/HEAD&gt; tag."),
+				TextareaField::create('Placeholder2', 'Script after &lt;BODY&gt;')
+					->setRows(15)
+					->addExtraClass('gtm stacked')
+					->setDescription("This code is injected into all pages at the top, after the &lt;BODY&gt; tag."),
+				TextareaField::create('Placeholder3', 'Script before &lt;/BODY&gt;')
+					->setRows(15)
+					->addExtraClass('gtm stacked')
+					->setDescription("This code is injected into all pages at the bottom, before the &lt;/BODY&gt; tag."),
+				TextareaField::create('ReceivedFormPlaceholder', 'Script after form submitted')
+					->setRows(15)
+					->addExtraClass('gtm stacked')
+					->setDescription("This code is injected into the page after a userforms submission. Specific (per form) code can be added on the form and will override this content."),
 			)
 		);
 	}

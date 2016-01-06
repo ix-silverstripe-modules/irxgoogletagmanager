@@ -1,4 +1,6 @@
-.field textarea.gtm{
-	min-width: 700px;
+fieldset .field textarea.gtm{
+	max-width: 800px;
+	width: 100%;
+	min-width: 512px;
 }
 

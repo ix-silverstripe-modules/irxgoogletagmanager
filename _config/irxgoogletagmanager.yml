@@ -7,6 +7,9 @@ SiteConfig:
 UserDefinedForm:
   extensions:
     - 'GTMUserFormsExtension'
+UserDefinedForm_Controller:
+  extensions:
+    - 'GTMUserFormsControllerExtension'
 LeftAndMain:
   extra_requirements_css:
     - 'irxgoogletagmanager/css/irxgtm-extras.css'
