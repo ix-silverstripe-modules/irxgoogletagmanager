@@ -41,7 +41,8 @@ class GTMUserFormsExtension extends DataExtension {
 			);
 			
 			if(!$submittedForm){ 
-				$submittedForm = Session::get('GTM-capturedFields-'. $this->owner->ID)['Fields'];
+				$submittedForm = Session::get('GTM-capturedFields-'. $this->owner->ID);
+				$submittedForm = $submittedForm['Fields'];
 				$fields = array();
 				foreach($submittedForm as $formField){
 					$fields[$formField->Title] = $formField->Value;
