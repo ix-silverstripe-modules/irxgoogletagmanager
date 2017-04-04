@@ -1,6 +1,9 @@
 ---
 Name: irxgoogletagmanager
 ---
+ContentController:
+  extensions:
+    - 'GTMContentControllerExtension'
 SiteConfig:
   extensions:
     - 'GTMSiteConfigExtension'
