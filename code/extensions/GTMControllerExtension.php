@@ -6,7 +6,7 @@
  *
  **/
 
-class GTMContentControllerExtension extends DataExtension {
+class GTMControllerExtension extends Extension {
 	
 	public function onBeforeInit(){
 		GTMDataLayer::loadDataFromSession();

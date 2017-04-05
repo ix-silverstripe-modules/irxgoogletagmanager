@@ -20,6 +20,9 @@ class GTMDataLayer extends ViewableData {
 		return $layerData;
 	}
 	
+	/**
+	 * call this function to save data into session before redirecting to another page.
+	 */
 	public static function saveDataIntoSession(){
 		if( ! empty(self::$data)){
 			Session::set(self::config()->data_session_name, serialize(self::$data));
