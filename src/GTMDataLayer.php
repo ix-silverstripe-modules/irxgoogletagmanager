@@ -2,8 +2,10 @@
 
 namespace Internetrix\GoogleTagManager;
 
+use SilverStripe\Control\Session;
 use SilverStripe\View\ViewableData;
-use SilverStripe\Control\Controller;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Control\HTTPRequest;
 
 class GTMDataLayer extends ViewableData {
 	
@@ -30,16 +32,17 @@ class GTMDataLayer extends ViewableData {
 	 * call this function to save data into session before redirecting to another page.
 	 */
 	public static function saveDataIntoSession(){
-        $session = Controller::curr()->getRequest()->getSession();
-
         if( ! empty(self::$data)){
+            $request = Injector::inst()->get(HTTPRequest::class);
+            $session = $request->getSession();
 			$session->set(self::config()->data_session_name, serialize(self::$data));
 			$session->save();
 		}
 	}
 	
 	public static function loadDataFromSession(){
-        $session = Controller::curr()->getRequest()->getSession();
+        $request = Injector::inst()->get();
+        $session = $request->getSession();
 
 	    $data = $session->get(self::config()->data_session_name);
 		if($data){

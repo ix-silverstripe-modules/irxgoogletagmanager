@@ -12,6 +12,7 @@ use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Control\Controller;
+use SilverStripe\Core\Convert;
 
 class GTMUserFormsExtension extends DataExtension {
 	
