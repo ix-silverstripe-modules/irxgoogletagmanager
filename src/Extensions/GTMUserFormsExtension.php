@@ -12,6 +12,8 @@ use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Control\Controller;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\Convert;
 
 class GTMUserFormsExtension extends DataExtension {
@@ -31,7 +33,9 @@ class GTMUserFormsExtension extends DataExtension {
 	}
 
 	public function sessionGet() {
-        return Controller::curr()->getRequest()->getSession();
+        $request = Injector::inst()->get(HTTPRequest::class);
+        $session = $request->getSession();
+        return $session;
     }
 	
 	public function contentcontrollerInit($controller) {

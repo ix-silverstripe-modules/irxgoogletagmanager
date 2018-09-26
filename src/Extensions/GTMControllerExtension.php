@@ -10,11 +10,15 @@ namespace Internetrix\GoogleTagManager;
 
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Core\Convert;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Control\HTTPRequest;
 
 class GTMControllerExtension extends DataExtension {
 	
 	public function onBeforeInit(){
-		GTMDataLayer::loadDataFromSession();
+        $request = Injector::inst()->get(HTTPRequest::class);
+        $session = $request->getSession();
+		GTMDataLayer::loadDataFromSession($session);
 	}
 	
 	public function DataLayerExists(){

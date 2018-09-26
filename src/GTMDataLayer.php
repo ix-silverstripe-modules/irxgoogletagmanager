@@ -40,10 +40,7 @@ class GTMDataLayer extends ViewableData {
 		}
 	}
 	
-	public static function loadDataFromSession(){
-        $request = Injector::inst()->get();
-        $session = $request->getSession();
-
+	public static function loadDataFromSession($session){
 	    $data = $session->get(self::config()->data_session_name);
 		if($data){
 			$data = unserialize($data);
