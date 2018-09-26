@@ -10,8 +10,9 @@ namespace Internetrix\GoogleTagManager;
 
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\TextareaField;
-use SilverStripe\Control\Session;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Core\Injector\Injector;
 
 class GTMUserFormsExtension extends DataExtension {
 	
@@ -28,16 +29,25 @@ class GTMUserFormsExtension extends DataExtension {
 			->setDescription('This code is injected into the page after a userforms submission. Will override code (if any) defined at a global level for userforms.')
 		); 
 	}
+
+	public function sessionGet() {
+        $request = Injector::inst()->get(HTTPRequest::class);
+        return $request->getSession();
+    }
 	
 	public function contentcontrollerInit($controller) {
-		if(Session::get('GTM-capturedFields-'. $this->owner->ID)){
+        $session = $this->sessionGet();
+
+		if($session->get('GTM-capturedFields-'. $this->owner->ID)){
 			$this->owner->insertJSON = true;
 		}
 	}
 	
 	public function DataLayerJSON(){
-		if($this->owner->insertJSON){
-			$submittedID = Session::get('userformssubmission'. $this->owner->ID);
+        $session = $this->sessionGet();
+
+	    if($this->owner->insertJSON){
+			$submittedID = $session->get('userformssubmission'. $this->owner->ID);
 			$submittedForm 	= $this->owner->Submissions()->byID($submittedID);
 			$irxDataLayer 	= array();
 			$irxDataLayer['event'] = 'irx.newData.form';
@@ -48,7 +58,7 @@ class GTMUserFormsExtension extends DataExtension {
 			);
 			
 			if(!$submittedForm){ 
-				$submittedForm = Session::get('GTM-capturedFields-'. $this->owner->ID);
+				$submittedForm = $session->get('GTM-capturedFields-'. $this->owner->ID);
 				$submittedForm = $submittedForm['Fields'];
 				$fields = array();
 				foreach($submittedForm as $formField){
@@ -63,13 +73,13 @@ class GTMUserFormsExtension extends DataExtension {
 				}
 			}
 			
-			$counta = Session::get('GTM-capturedRecipients-'. $this->owner->ID);
+			$counta = $session->get('GTM-capturedRecipients-'. $this->owner->ID);
 			$irxDataLayer['IRXSubmittedForm']['submissionStatus'] .= ", send $counta email";
 			
 			$irxDataLayer['IRXSubmittedForm']['fields'] = $fields;
-			Session::clear('GTM-capturedRecipients-'. $this->owner->ID);
-			Session::clear('GTM-capturedFields-'. $this->owner->ID);
-			Session::clear('userformssubmission'. $this->owner->ID); // tidy up userforms!
+            $session->clear('GTM-capturedRecipients-'. $this->owner->ID);
+            $session->clear('GTM-capturedFields-'. $this->owner->ID);
+            $session->clear('userformssubmission'. $this->owner->ID); // tidy up userforms!
 			return Convert::array2json($irxDataLayer);
 		}else{
 			return false;
@@ -77,7 +87,8 @@ class GTMUserFormsExtension extends DataExtension {
 	}
 	// count the number of emails to be sent
 	public function updateFilteredEmailRecipients( $recipients, $data, $form){
-		Session::set('GTM-capturedRecipients-'. $this->owner->ID, $recipients->Count() );
+        $session = $this->sessionGet();
+        $session->set('GTM-capturedRecipients-'. $this->owner->ID, $recipients->Count() );
 	}
 	
 }
@@ -85,6 +96,7 @@ class GTMUserFormsExtension extends DataExtension {
 class GTMUserFormsControllerExtension extends DataExtension {
 	// catch form data here in case the submission isn't being saved.
 	public function updateEmailData( $emailData,  $attachments){
-		Session::set('GTM-capturedFields-'. $this->owner->ID, $emailData);
+        $session = $this->sessionGet();
+        $session->set('GTM-capturedFields-'. $this->owner->ID, $emailData);
 	}
 }
