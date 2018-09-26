@@ -15,4 +15,4 @@ SilverStripe\UserForms\Model\UserDefinedForm_Controller:
     - 'Internetrix\GoogleTagManager\GTMUserFormsControllerExtension'
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
-    - 'irxgoogletagmanager/css/irxgtm-extras.css'
+    - 'silverstripe-googletagmanager/css/irxgtm-extras.css'
