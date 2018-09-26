@@ -1,18 +1,18 @@
 ---
 Name: irxgoogletagmanager
 ---
-Controller:
+SilverStripe\Control\Controller:
   extensions:
     - 'GTMControllerExtension'
-SiteConfig:
+SilverStripe\SiteConfig\SiteConfig:
   extensions:
     - 'GTMSiteConfigExtension'
-UserDefinedForm:
+SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
     - 'GTMUserFormsExtension'
-UserDefinedForm_Controller:
+SilverStripe\UserForms\Model\UserDefinedForm_Controller:
   extensions:
     - 'GTMUserFormsControllerExtension'
-LeftAndMain:
+SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - 'irxgoogletagmanager/css/irxgtm-extras.css'

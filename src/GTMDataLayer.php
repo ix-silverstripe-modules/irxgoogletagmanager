@@ -1,4 +1,10 @@
 <?php
+
+namespace Internetrix\GoogleTagManager;
+
+use SilverStripe\View\ViewableData;
+use SilverStripe\Control\Session;
+
 class GTMDataLayer extends ViewableData {
 	
 	private static $data_session_name = 'GTMDataLayerData';

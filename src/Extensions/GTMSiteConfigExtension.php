@@ -6,6 +6,13 @@
  *
  **/
 
+namespace Internetrix\GoogleTagManager;
+
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\Tab;
+use SilverStripe\Forms\TextareaField;
+
 class GTMSiteConfigExtension extends DataExtension {
 	
 	private static $db = array (

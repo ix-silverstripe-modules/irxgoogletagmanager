@@ -6,7 +6,12 @@
  *
  **/
 
-class GTMControllerExtension extends Extension {
+namespace Internetrix\GoogleTagManager;
+
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Convert;
+
+class GTMControllerExtension extends DataExtension {
 	
 	public function onBeforeInit(){
 		GTMDataLayer::loadDataFromSession();

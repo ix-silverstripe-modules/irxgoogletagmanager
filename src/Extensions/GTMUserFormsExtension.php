@@ -6,6 +6,13 @@
  *
  **/
 
+namespace Internetrix\GoogleTagManager;
+
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Forms\TextareaField;
+use SilverStripe\Control\Session;
+use SilverStripe\Forms\FieldList;
+
 class GTMUserFormsExtension extends DataExtension {
 	
 	public $insertJSON = false;
