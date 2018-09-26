@@ -3,16 +3,16 @@ Name: irxgoogletagmanager
 ---
 SilverStripe\Control\Controller:
   extensions:
-    - 'GTMControllerExtension'
+    - 'Internetrix\GoogleTagManager\GTMControllerExtension'
 SilverStripe\SiteConfig\SiteConfig:
   extensions:
-    - 'GTMSiteConfigExtension'
+    - 'Internetrix\GoogleTagManager\GTMSiteConfigExtension'
 SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
-    - 'GTMUserFormsExtension'
+    - 'Internetrix\GoogleTagManager\GTMUserFormsExtension'
 SilverStripe\UserForms\Model\UserDefinedForm_Controller:
   extensions:
-    - 'GTMUserFormsControllerExtension'
+    - 'Internetrix\GoogleTagManager\GTMUserFormsControllerExtension'
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - 'irxgoogletagmanager/css/irxgtm-extras.css'
