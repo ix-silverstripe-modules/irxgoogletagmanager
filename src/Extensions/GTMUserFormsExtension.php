@@ -11,8 +11,7 @@ namespace Internetrix\GoogleTagManager;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Control\HTTPRequest;
-use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Control\Controller;
 
 class GTMUserFormsExtension extends DataExtension {
 	
@@ -31,8 +30,7 @@ class GTMUserFormsExtension extends DataExtension {
 	}
 
 	public function sessionGet() {
-        $request = Injector::inst()->get(HTTPRequest::class);
-        return $request->getSession();
+        return Controller::curr()->getRequest()->getSession();
     }
 	
 	public function contentcontrollerInit($controller) {
