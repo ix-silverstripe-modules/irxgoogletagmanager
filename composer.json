@@ -25,6 +25,9 @@
 			"css"
 		]
 	},
+	"replace": {
+        "silverstripe-modules/irxgoogletagmanager": "self.version"
+    },
 	"autoload": {
 		"psr-4": {
 			"Internetrix\\GoogleTagManager\\": "src/"
