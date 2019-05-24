@@ -16,7 +16,7 @@ use SilverStripe\Control\HTTPRequest;
 class GTMControllerExtension extends DataExtension {
 	
 	public function onBeforeInit(){
-        $request = Injector::inst()->get(HTTPRequest::class);
+        $request = $this->owner->getRequest();
         $session = $request->getSession();
 		GTMDataLayer::loadDataFromSession($session);
 	}
