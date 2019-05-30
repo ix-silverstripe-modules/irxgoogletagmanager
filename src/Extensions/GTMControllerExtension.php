@@ -12,13 +12,19 @@ use SilverStripe\ORM\DataExtension;
 use SilverStripe\Core\Convert;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Control\HTTPRequest;
+use BadMethodCallException;
 
 class GTMControllerExtension extends DataExtension {
 	
 	public function onBeforeInit(){
         $request = $this->owner->getRequest();
-        $session = $request->getSession();
-		GTMDataLayer::loadDataFromSession($session);
+        try{
+            $session = $request->getSession();
+            GTMDataLayer::loadDataFromSession($session);
+        }catch (BadMethodCallException $e){
+            //no need to do anything
+        }
+
 	}
 	
 	public function DataLayerExists(){
