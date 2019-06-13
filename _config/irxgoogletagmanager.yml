@@ -10,7 +10,7 @@ SilverStripe\SiteConfig\SiteConfig:
 SilverStripe\UserForms\Model\UserDefinedForm:
   extensions:
     - 'Internetrix\GoogleTagManager\GTMUserFormsExtension'
-SilverStripe\UserForms\Model\UserDefinedForm_Controller:
+SilverStripe\UserForms\Control\UserDefinedFormController:
   extensions:
     - 'Internetrix\GoogleTagManager\GTMUserFormsControllerExtension'
 SilverStripe\Admin\LeftAndMain:
