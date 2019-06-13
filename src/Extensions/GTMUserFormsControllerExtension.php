@@ -9,13 +9,6 @@
 namespace Internetrix\GoogleTagManager;
 
 use SilverStripe\ORM\DataExtension;
-use SilverStripe\Forms\TextareaField;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Control\Controller;
-use SilverStripe\Core\Injector\Injector;
-use SilverStripe\Control\HTTPRequest;
-use SilverStripe\Core\Convert;
-
 
 class GTMUserFormsControllerExtension extends DataExtension {
 	// catch form data here in case the submission isn't being saved.
