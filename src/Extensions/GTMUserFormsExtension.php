@@ -93,13 +93,4 @@ class GTMUserFormsExtension extends DataExtension {
         $session = $this->sessionGet();
         $session->set('GTM-capturedRecipients-'. $this->owner->ID, $recipients->Count() );
 	}
-	
-}
-
-class GTMUserFormsControllerExtension extends DataExtension {
-	// catch form data here in case the submission isn't being saved.
-	public function updateEmailData( $emailData,  $attachments){
-        $session = $this->sessionGet();
-        $session->set('GTM-capturedFields-'. $this->owner->ID, $emailData);
-	}
 }
