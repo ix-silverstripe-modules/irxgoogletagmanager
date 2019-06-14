@@ -14,6 +14,6 @@ class GTMUserFormsControllerExtension extends DataExtension {
 	// catch form data here in case the submission isn't being saved.
 	public function updateEmailData( $emailData,  $attachments){
         $session = $this->owner->sessionGet();
-        $session->set('GTM-capturedFields-'. $this->owner->ID, $emailData);
+        $session->set('GTM-capturedFields-'. $this->owner->ID, $emailData['Fields']);
 	}
 }
