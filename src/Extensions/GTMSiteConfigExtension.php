@@ -26,18 +26,18 @@ class GTMSiteConfigExtension extends DataExtension {
 		$fields->addFieldToTab ( "Root", Tab::create('GTM', 'Scripts'), 'Access');
 		$fields->addFieldsToTab ( "Root.GTM", 					
 			array(
-                TextareaField::create('Placeholder1', 'Script inside &lt;HEAD&gt;')
+                TextareaField::create('Placeholder1', 'Script inside <HEAD>')
 					->setRows(15)
 					->addExtraClass('gtm stacked')
-                    ->setDescription("This code is injected into all pages at the top, before the &lt;/HEAD&gt; tag."),
-                TextareaField::create('Placeholder2', 'Script after &lt;BODY&gt;')
+                    ->setDescription("This code is injected into all pages at the top, before the </HEAD> tag."),
+                TextareaField::create('Placeholder2', 'Script after <BODY>')
 					->setRows(15)
 					->addExtraClass('gtm stacked')
-                    ->setDescription("This code is injected into all pages at the top, after the &lt;BODY&gt; tag."),
-                TextareaField::create('Placeholder3', 'Script before &lt;/BODY&gt;')
+                    ->setDescription("This code is injected into all pages at the top, after the <BODY> tag."),
+                TextareaField::create('Placeholder3', 'Script before </BODY>')
 					->setRows(15)
 					->addExtraClass('gtm stacked')
-                    ->setDescription("This code is injected into all pages at the bottom, before the &lt;/BODY&gt; tag."),
+                    ->setDescription("This code is injected into all pages at the bottom, before the < /BODY> tag."),
 				TextareaField::create('ReceivedFormPlaceholder', 'Script after form submitted')
 					->setRows(15)
 					->addExtraClass('gtm stacked')
