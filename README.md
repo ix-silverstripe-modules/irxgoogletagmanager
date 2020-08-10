@@ -23,10 +23,10 @@ In your page template, you can render the data by including these three tags:
 You should also add the following code before the $SiteConfig.Placeholder1.RAW placeholder
 
     <script>
-    	window.IRXDataLayer = window.IRXDataLayer || [];
-    	<% if $DataLayerJSON %>
-    		IRXDataLayer.push($DataLayerJSON);
-    	<% end_if %>
+        window.dataLayer = window.dataLayer || [];
+        <% if $DataLayerJSON %>
+          dataLayer.push($DataLayerJSON);
+        <% end_if %>
     </script>
 
 The UserForms module has a ReceivedFormSubmission.ss template which needs additional code, there is an updated version of that template in this module. Copy the template from this module into ~/mysite/templates/ so that it takes priority. Alternatively, if you have a customised template it will need to reference these two tags: 
